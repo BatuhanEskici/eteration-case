@@ -1,7 +1,7 @@
 export default function ProductCard({ className }) {
     return (
-        <div className={`${className} bg-white p-2`}>
-            <img src="https://fakeimg.pl/150x150/" alt="product" />
+        <div className={`${className} bg-white p-2 flex flex-col items-start`}>
+            <img src="https://fakeimg.pl/150x150/" alt="product" className="w-full object-cover" />
 
             <span className="text-[#2A59FE] block mt-2">15.000 TL</span>
 

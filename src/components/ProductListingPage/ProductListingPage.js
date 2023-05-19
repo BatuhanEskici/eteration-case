@@ -7,7 +7,7 @@ import Checkout from '../Checkout/Checkout';
 export default function ProductListingPage() {
     return (
         <div className='flex w-4/5 mx-auto mt-6'>
-            <div className='w-1/3'>
+            <div className='w-[20%] pr-6'>
                 <Sort />
 
                 <Brands className="mt-5" />
@@ -15,7 +15,7 @@ export default function ProductListingPage() {
                 <Model className="mt-5" />
             </div>
 
-            <div className='w-2/3 flex items-start justify-between mt-7'>
+            <div className='w-[60%] flex items-start justify-between mt-7'>
                 <ProductCard />
 
                 <ProductCard className="ml-4" />
@@ -25,7 +25,7 @@ export default function ProductListingPage() {
                 <ProductCard className="ml-4" />
             </div>
 
-            <div className='w-1/3 mt-7'><Checkout /></div>
+            <div className='w-[20%] mt-7 pl-6'><Checkout /></div>
         </div>
     )
 }

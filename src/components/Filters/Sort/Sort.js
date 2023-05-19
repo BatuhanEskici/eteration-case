@@ -1,6 +1,6 @@
 export default function Sort() {
     return (
-        <div className="pr-6">
+        <div>
             <span className="text-sm text-slate-500">Sort By</span>
 
             <div className="bg-white shadow-md p-3 mt-1">
