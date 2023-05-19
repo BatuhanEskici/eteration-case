@@ -1,9 +1,14 @@
 import './App.css';
 import Navbar from './components/Navbar/Navbar'
+import ProductListingPage from './components/ProductListingPage/ProductListingPage';
 
 function App() {
   return (
-    <Navbar />
+    <div>
+      <Navbar />
+
+      <ProductListingPage />
+    </div>
   );
 }
 
