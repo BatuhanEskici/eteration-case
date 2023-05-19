@@ -7,7 +7,7 @@ export default function ProductCard({ className }) {
 
             <p className="my-2">iPhone 13 Pro Max 256Gb</p>
 
-            <button className="bg-[#2A59FE] text-white px-3 py-1 rounded">Add to Cart</button>
+            <button className="bg-[#2A59FE] text-white px-3 py-1 rounded w-full text-center">Add to Cart</button>
         </div>
     )
 }
