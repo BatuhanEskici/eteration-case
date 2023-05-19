@@ -4,7 +4,7 @@ import ProductListingPage from './components/ProductListingPage/ProductListingPa
 
 function App() {
   return (
-    <div>
+    <div className='bg-[#F9F9F9]'>
       <Navbar />
 
       <ProductListingPage />
