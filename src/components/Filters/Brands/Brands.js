@@ -1,6 +1,6 @@
 export default function Brands({ className }) {
     return (
-        <div className={`pr-6 ${className}`}>
+        <div className={`${className} pr-6`}>
             <span className="text-sm text-slate-500">Brands</span>
 
             <div className="bg-white shadow-md p-3 mt-1">
