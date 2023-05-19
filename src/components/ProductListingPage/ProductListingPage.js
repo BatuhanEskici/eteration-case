@@ -2,6 +2,7 @@ import Sort from '../Filters/Sort/Sort';
 import Brands from '../Filters/Brands/Brands';
 import Model from '../Filters/Model/Model';
 import ProductCard from '../ProductCard/ProductCard'
+import Box from '../Box/Box';
 import Checkout from '../Checkout/Checkout';
 
 export default function ProductListingPage() {
@@ -25,7 +26,11 @@ export default function ProductListingPage() {
                 <ProductCard className="ml-4" />
             </div>
 
-            <div className='w-[20%] mt-7 pl-6'><Checkout /></div>
+            <div className='w-[20%] mt-7 pl-6'>
+                <Box />
+
+                <Checkout className="mt-6" />
+            </div>
         </div>
     )
 }
