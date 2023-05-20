@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialProductsState = {
     items: [],
     activePage: 1,
+    pagedItems: [],
 }
 
 // const initialSortState = 'old_to_new';
@@ -22,9 +23,12 @@ const products = createSlice({
         },
         updateActivePage: (state, action) => {
             state.activePage = action.payload;
+        },
+        updatePagedItems: (state, action) => {
+            state.pagedItems = action.payload;
         }
     }
 })
 
-export const { updateItems, updateActivePage } = products.actions
+export const { updateItems, updateActivePage, updatePagedItems } = products.actions
 export default products.reducer
