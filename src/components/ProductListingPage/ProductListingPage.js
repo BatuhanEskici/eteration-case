@@ -4,8 +4,19 @@ import Model from '../Filters/Model/Model';
 import ProductCard from '../ProductCard/ProductCard'
 import Box from '../Box/Box';
 import Checkout from '../Checkout/Checkout';
+import { useSelector } from 'react-redux';
 
 export default function ProductListingPage() {
+    const pagedItems = useSelector(state => state.products.pagedItems)
+
+    const getProductCardClass = (productIndex) => {
+        if ((productIndex + 1) > 4) {
+            return 'mt-4'
+        }
+
+        return
+    }
+
     return (
         <div className='flex w-4/5 mx-auto mt-6'>
             <div className='w-[20%] pr-6'>
@@ -16,14 +27,12 @@ export default function ProductListingPage() {
                 <Model className="mt-5" />
             </div>
 
-            <div className='w-[60%] flex items-start justify-between mt-7'>
-                <ProductCard />
-
-                <ProductCard className="ml-4" />
-
-                <ProductCard className="ml-4" />
-
-                <ProductCard className="ml-4" />
+            <div className='w-[60%] flex flex-wrap items-center justify-between mt-7'>
+                {
+                    pagedItems.map((product, productIndex) =>
+                        <ProductCard key={product.id} product={product} className={getProductCardClass(productIndex)} />
+                    )
+                }
             </div>
 
             <div className='w-[20%] mt-7 pl-6'>
