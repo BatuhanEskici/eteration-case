@@ -1,6 +1,6 @@
 export default function ProductCard({ className, product }) {
     return (
-        <div className={`${className || ''} bg-white p-2 flex flex-col items-start w-[23%]`}>
+        <div className={`${className || ''} bg-white p-2 flex flex-col items-start w-[23%] max-h-[234px]`}>
             <img src={product.image} alt="product" className="w-full object-cover" />
 
             <span className="text-[#2A59FE] text-xs block mt-2">{product.price} TL</span>

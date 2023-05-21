@@ -21,7 +21,6 @@ function App() {
 
         const pagedItems = productItems.slice((activePage - 1) * 12, activePage * itemsPerPage);
         dispatch(updatePagedItems(pagedItems))
-        console.log(pagedItems);
 
         const pageCount = getProductItemsPageCount(productItems.length, itemsPerPage);
         dispatch(updatePageCount(pageCount));

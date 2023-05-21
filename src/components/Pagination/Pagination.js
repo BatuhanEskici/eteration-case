@@ -1,4 +1,4 @@
-import { memo, useMemo } from "react";
+import { memo, useCallback, useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { updateActivePage } from "../../stores/store";
@@ -8,21 +8,19 @@ function Pagination({ className }) {
     const activePage = useSelector(state => state.products.activePage);
     const hasPrevPage = useSelector(state => state.products.hasPrevPage);
     const hasNextPage = useSelector(state => state.products.hasNextPage);
-    const pages = [];
-    const pageButtons = [];
+    const [pages] = useState(Array.from({length: pageCount}, (_, pageIndex) => pageIndex + 1));
+    const [pageButtons, setPageButtons] = useState([]);
     const showLastPageButton = useMemo(() => pageCount - activePage > 1, [pageCount, activePage]);
 
     const dispatch = useDispatch();
 
-    const setActivePage = (pageNumber) => {
+    const setActivePage = useCallback((pageNumber) => {
         dispatch(updateActivePage(pageNumber));
-    }
+    }, [dispatch])
 
-    for (let pageNumber = 1; pageNumber <= pageCount; pageNumber++) {
-        pages.push(pageNumber);
-    }
+    const initPagination = useCallback(() => {
+        const pageButtons = [];
 
-    const setPageButtons = () => {
         if (hasPrevPage) {
             pageButtons.push(
                 { className: "py-1 px-3 rounded text-slate-500", pageNumber: activePage - 1 }
@@ -44,9 +42,15 @@ function Pagination({ className }) {
                 { className: "py-1 px-3 rounded text-slate-500", pageNumber: activePage + 2 }
             );
         }
-    }
 
-    setPageButtons();
+        setPageButtons(pageButtons);
+    }, [activePage, hasNextPage, hasPrevPage, pages, setActivePage])
+
+    useEffect(() => {
+        initPagination();
+    }, [initPagination, activePage])
+
+    console.log(activePage);
 
     return (
         <div className={`${className} flex items-center justify-center w-full`}>

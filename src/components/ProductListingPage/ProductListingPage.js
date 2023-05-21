@@ -34,7 +34,7 @@ export default function ProductListingPage() {
                 <Model className="mt-5" />
             </div>
 
-            <div className='w-[60%] flex flex-wrap items-center justify-between mt-7'>
+            <div className={`${pagedItems.length > 3 && "justify-between"}w-[60%] flex flex-wrap mt-7`}>
                 {
                     pagedItems.map((product, productIndex) =>
                         <ProductCard key={product.id} product={product} className={getProductCardClass(productIndex)} />
