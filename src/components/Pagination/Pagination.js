@@ -57,8 +57,6 @@ function Pagination({ className }) {
         initPagination();
     }, [initPagination, activePage])
 
-    console.log(activePage);
-
     return (
         <div className={`${className} flex items-center justify-center w-full`}>
             <button disabled={!hasPrevPage} className={`${hasPrevPage ? "text-slate-800" : "text-slate-500"} py-1 px-3`} onClick={() => {setActivePage(activePage - 1)}}>&lt;</button>
