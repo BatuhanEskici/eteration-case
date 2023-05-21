@@ -9,5 +9,5 @@ export default function ProductCard({ className, product }) {
 
             <button className="bg-[#2A59FE] text-white px-3 py-1 rounded w-full text-center">Add to Cart</button>
         </div>
-    )
+    );
 }

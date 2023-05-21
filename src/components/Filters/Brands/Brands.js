@@ -39,5 +39,5 @@ export default function Brands({ className }) {
                 </div>
             </div>
         </div>
-    )
+    );
 }

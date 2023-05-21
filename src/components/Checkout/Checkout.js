@@ -7,5 +7,5 @@ export default function Checkout({className}) {
 
             <button className="bg-[#2A59FE] text-white px-3 py-1 rounded w-full text-center mt-3">Checkout</button>
         </div>
-    )
+    );
 }

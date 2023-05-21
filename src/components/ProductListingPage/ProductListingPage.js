@@ -1,20 +1,27 @@
+import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
 import Sort from '../Filters/Sort/Sort';
 import Brands from '../Filters/Brands/Brands';
 import Model from '../Filters/Model/Model';
-import ProductCard from '../ProductCard/ProductCard'
+import ProductCard from '../ProductCard/ProductCard';
 import Box from '../Box/Box';
 import Checkout from '../Checkout/Checkout';
-import { useSelector } from 'react-redux';
+import Pagination from '../Pagination/Pagination';
 
 export default function ProductListingPage() {
-    const pagedItems = useSelector(state => state.products.pagedItems)
+    const pagedItems = useSelector(state => state.products.pagedItems);
+    const [hasProduct, setHasProduct] = useState(false);
+
+    useEffect(() => {
+        setHasProduct(pagedItems.length)
+    }, [pagedItems]);
 
     const getProductCardClass = (productIndex) => {
         if ((productIndex + 1) > 4) {
-            return 'mt-4'
+            return 'mt-4';
         }
 
-        return
+        return;
     }
 
     return (
@@ -33,6 +40,8 @@ export default function ProductListingPage() {
                         <ProductCard key={product.id} product={product} className={getProductCardClass(productIndex)} />
                     )
                 }
+
+                {(hasProduct) && <Pagination className="my-4" />}
             </div>
 
             <div className='w-[20%] mt-7 pl-6'>
@@ -41,5 +50,5 @@ export default function ProductListingPage() {
                 <Checkout className="mt-6" />
             </div>
         </div>
-    )
+    );
 }
