@@ -10,6 +10,7 @@ function Pagination({ className }) {
     const hasNextPage = useSelector(state => state.products.hasNextPage);
     const [pages] = useState(Array.from({length: pageCount}, (_, pageIndex) => pageIndex + 1));
     const [pageButtons, setPageButtons] = useState([]);
+    const showFirstPageButton = useMemo(() => pageCount - activePage < 2, [pageCount, activePage]);
     const showLastPageButton = useMemo(() => pageCount - activePage > 1, [pageCount, activePage]);
 
     const dispatch = useDispatch();
@@ -20,6 +21,12 @@ function Pagination({ className }) {
 
     const initPagination = useCallback(() => {
         const pageButtons = [];
+
+        if (activePage === pageCount) {
+            pageButtons.push(
+                { className: "py-1 px-3 rounded text-slate-500", pageNumber: activePage - 2 }
+            );
+        }
 
         if (hasPrevPage) {
             pageButtons.push(
@@ -33,7 +40,7 @@ function Pagination({ className }) {
 
         if (hasNextPage) {
             pageButtons.push(
-                { className: "py-1 px-3 rounded text-slate-500", pageNumber: activePage + 1, click: () => { setActivePage(activePage + 1) } }
+                { className: "py-1 px-3 rounded text-slate-500", pageNumber: activePage + 1 }
             );
         }
 
@@ -44,7 +51,7 @@ function Pagination({ className }) {
         }
 
         setPageButtons(pageButtons);
-    }, [activePage, hasNextPage, hasPrevPage, pages, setActivePage])
+    }, [activePage, hasNextPage, hasPrevPage, pages, pageCount])
 
     useEffect(() => {
         initPagination();
@@ -54,18 +61,21 @@ function Pagination({ className }) {
 
     return (
         <div className={`${className} flex items-center justify-center w-full`}>
-            <button disabled={hasPrevPage} className={`${hasPrevPage ? "text-slate-800" : "text-slate-500"} py-1 px-3`}>&lt;</button>
+            <button disabled={!hasPrevPage} className={`${hasPrevPage ? "text-slate-800" : "text-slate-500"} py-1 px-3`} onClick={() => {setActivePage(activePage - 1)}}>&lt;</button>
+
+            {showFirstPageButton && <button className="py-1 px-3 rounded text-slate-500" onClick={() => {setActivePage(1)}}>{1}</button>}
+
+            {showFirstPageButton && <span>...</span>}
 
             {pageButtons.map((page) => {
-                return <button className={page.className} key={page.pageNumber} onClick={page.click}>{page.pageNumber}</button>
+                return <button className={page.className} key={page.pageNumber} onClick={() => {setActivePage(page.pageNumber)}}>{page.pageNumber}</button>
             })}
 
             {showLastPageButton && <span>...</span>}
 
-            {showLastPageButton && <button className="py-1 px-3 rounded text-slate-500">{pageCount}</button>}
+            {showLastPageButton && <button className="py-1 px-3 rounded text-slate-500" onClick={() => {setActivePage(pageCount)}}>{pageCount}</button>}
 
-
-            <button className="text-slate-500 py-1 px-3">&gt;</button>
+            <button disabled={!hasNextPage} className={`${hasNextPage ? "text-slate-800" : "text-slate-500"} py-1 px-3`} onClick={() => {setActivePage(activePage + 1)}}>&gt;</button>
         </div>
     );
 }
