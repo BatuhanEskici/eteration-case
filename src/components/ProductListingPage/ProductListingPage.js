@@ -17,15 +17,17 @@ export default function ProductListingPage() {
   }, [pagedItems]);
 
   const getProductCardClass = (productIndex) => {
+    let className = '';
+
     if (productIndex + 1 > 4) {
-      return 'mt-4';
+      className += 'mt-4';
     }
 
-    if (pagedItems.length > 1 && pagedItems.length < 4) {
-      return 'ml-4';
+    if (pagedItems.length > 1 && productIndex % 4 !== 0) {
+      className += ' ml-4';
     }
 
-    return;
+    return className;
   };
 
   return (
