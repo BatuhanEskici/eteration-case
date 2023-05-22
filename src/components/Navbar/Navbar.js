@@ -10,7 +10,12 @@ export default function Navbar() {
         <div className="w-[20%] text-white pr-6">Eteration</div>
 
         <div className="w-[60%]">
-          <input type="text" placeholder="Search" className="p-1" />
+          <input
+            type="text"
+            placeholder="Search"
+            className="p-1"
+            onInput={context.handleProductSearch}
+          />
         </div>
 
         <div className="w-[20%] text-white pl-6">

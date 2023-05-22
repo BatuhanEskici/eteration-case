@@ -1,6 +1,6 @@
 import './App.css';
 import axios from 'axios';
-import { useEffect, createContext, useMemo } from 'react';
+import { useEffect, createContext, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateProducts } from './store/products';
 import { updateBrands } from './store/brands';
@@ -25,7 +25,8 @@ function App() {
   const sort = useSelector((state) => state.sort);
   const box = useSelector((state) => state.box);
   const totalPrice = useMemo(() => calculateTotalPrice(box), [box]);
-  const itemsPerPage = 12;
+  const [itemsPerPage] = useState(12);
+  const [productSearchText, setProductSearchText] = useState('');
 
   const addProductToBox = (product, action) => {
     let currentBox = [...box];
@@ -64,7 +65,11 @@ function App() {
     localStorage.setItem('boxItems', JSON.stringify(currentBox));
   };
 
-  const context = { addProductToBox, totalPrice };
+  const handleProductSearch = (event) => {
+    setProductSearchText(event.target.value.toLowerCase());
+  };
+
+  const context = { addProductToBox, totalPrice, handleProductSearch };
 
   useEffect(() => {
     const getProducts = async () => {
@@ -83,6 +88,12 @@ function App() {
         if (selectedModels.length) {
           productItems = productItems.filter((product) =>
             selectedModels.includes(product.model)
+          );
+        }
+
+        if (productSearchText) {
+          productItems = productItems.filter((product) =>
+            product.name.toLowerCase().includes(productSearchText)
           );
         }
 
@@ -143,7 +154,15 @@ function App() {
     };
 
     getProducts();
-  }, [dispatch, activePage, sort, selectedBrands, selectedModels]);
+  }, [
+    dispatch,
+    activePage,
+    sort,
+    selectedBrands,
+    selectedModels,
+    itemsPerPage,
+    productSearchText,
+  ]);
 
   useEffect(() => {
     const boxItemsLocalStorageData = localStorage.getItem('boxItems');
