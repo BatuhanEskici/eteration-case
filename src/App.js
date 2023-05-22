@@ -1,6 +1,7 @@
 import './App.css';
 import axios from 'axios';
 import { useEffect, createContext, useMemo, useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateProducts } from './store/products';
 import { updateBrands } from './store/brands';
@@ -8,6 +9,7 @@ import { updateModels } from './store/models';
 import { updateBox } from './store/box';
 import Navbar from './components/Navbar/Navbar';
 import ProductListingPage from './components/ProductListingPage/ProductListingPage';
+import ProductDetailPage from './components/ProductDetailPage/ProductDetailPage';
 import {
   getProductItemsPageCount,
   sortProductItems,
@@ -178,7 +180,13 @@ function App() {
       <AppContext.Provider value={context}>
         <Navbar />
 
-        <ProductListingPage />
+        <Router>
+          <Routes>
+            <Route path="/" element={<ProductListingPage />} />
+
+            <Route path="/product/:id" element={<ProductDetailPage />} />
+          </Routes>
+        </Router>
       </AppContext.Provider>
     </div>
   );

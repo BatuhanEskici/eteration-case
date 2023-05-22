@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
 import Sort from '../Filters/Sort/Sort';
 import Brands from '../Filters/Brands/Brands';
 import Models from '../Filters/Models/Models';
@@ -9,8 +10,17 @@ import Checkout from '../Checkout/Checkout';
 import Pagination from '../Pagination/Pagination';
 
 export default function ProductListingPage() {
+  const navigate = useNavigate();
   const pagedItems = useSelector((state) => state.products.pagedItems);
   const [hasProduct, setHasProduct] = useState(false);
+
+  const handleProductClick = (event, productId) => {
+    const canNavigate = event.target.getAttribute('navigatedetail');
+
+    if (canNavigate !== 'false') {
+      navigate(`/product/${productId}`, { replace: false });
+    }
+  };
 
   useEffect(() => {
     setHasProduct(pagedItems.length);
@@ -46,6 +56,7 @@ export default function ProductListingPage() {
             key={product.id}
             product={product}
             className={getProductCardClass(productIndex)}
+            onClick={handleProductClick}
           />
         ))}
 
