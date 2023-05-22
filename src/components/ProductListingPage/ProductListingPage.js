@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import Sort from '../Filters/Sort/Sort';
 import Brands from '../Filters/Brands/Brands';
-import Model from '../Filters/Model/Model';
+import Models from '../Filters/Models/Models';
 import ProductCard from '../ProductCard/ProductCard';
 import Box from '../Box/Box';
 import Checkout from '../Checkout/Checkout';
@@ -35,7 +35,7 @@ export default function ProductListingPage() {
 
         <Brands className="mt-5" />
 
-        <Model className="mt-5" />
+        <Models className="mt-5" />
       </div>
 
       <div className="w-[60%] flex flex-wrap mt-7">

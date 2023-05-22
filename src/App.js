@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateProducts } from './stores/products';
 import { updateBrands } from './stores/brands';
+import { updateModels } from './stores/models';
 import Navbar from './components/Navbar/Navbar';
 import ProductListingPage from './components/ProductListingPage/ProductListingPage';
 import {
@@ -16,6 +17,7 @@ function App() {
   const dispatch = useDispatch();
   const activePage = useSelector((state) => state.products.activePage);
   const selectedBrands = useSelector((state) => state.brands.selected);
+  const selectedModels = useSelector((state) => state.models.selected);
   const sort = useSelector((state) => state.sort);
   const itemsPerPage = 12;
 
@@ -30,6 +32,12 @@ function App() {
         if (selectedBrands.length) {
           productItems = productItems.filter((product) =>
             selectedBrands.includes(product.brand)
+          );
+        }
+
+        if (selectedModels.length) {
+          productItems = productItems.filter((product) =>
+            selectedModels.includes(product.model)
           );
         }
 
@@ -70,13 +78,27 @@ function App() {
             })
           );
         }
+
+        if (!selectedModels.length) {
+          let newModels = productItems.map((productItem) => productItem.model);
+          newModels = getUniqueArray(newModels);
+          newModels.sort();
+
+          dispatch(
+            updateModels({
+              init: newModels,
+              all: newModels,
+              selected: selectedBrands,
+            })
+          );
+        }
       } catch (error) {
         console.log(error);
       }
     };
 
     getProducts();
-  }, [dispatch, activePage, sort, selectedBrands]);
+  }, [dispatch, activePage, sort, selectedBrands, selectedModels]);
 
   return (
     <div className="bg-[#F9F9F9]">
