@@ -88,7 +88,7 @@ function App() {
             updateModels({
               init: newModels,
               all: newModels,
-              selected: selectedBrands,
+              selected: selectedModels,
             })
           );
         }
