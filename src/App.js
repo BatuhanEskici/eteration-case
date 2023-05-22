@@ -132,6 +132,15 @@ function App() {
     getProducts();
   }, [dispatch, activePage, sort, selectedBrands, selectedModels]);
 
+  useEffect(() => {
+    const boxItemsLocalStorageData = localStorage.getItem('boxItems');
+
+    if (boxItemsLocalStorageData) {
+      const boxItems = JSON.parse(boxItemsLocalStorageData);
+      dispatch(updateBox(boxItems));
+    }
+  }, [dispatch]);
+
   return (
     <div className="bg-[#F9F9F9]">
       <AppContext.Provider value={context}>
