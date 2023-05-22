@@ -1,4 +1,9 @@
+import { useContext } from 'react';
+import { AppContext } from '../../App';
+
 export default function ProductCard({ className, product }) {
+  const context = useContext(AppContext);
+
   return (
     <div
       className={`${
@@ -13,7 +18,12 @@ export default function ProductCard({ className, product }) {
 
       <p className="my-2 text-sm min-h-[40px]">{product.name}</p>
 
-      <button className="bg-[#2A59FE] text-white px-3 py-1 rounded w-full text-center">
+      <button
+        className="bg-[#2A59FE] text-white px-3 py-1 rounded w-full text-center"
+        onClick={() => {
+          context.addProductToBox(product);
+        }}
+      >
         Add to Cart
       </button>
     </div>

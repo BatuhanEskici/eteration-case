@@ -1,10 +1,11 @@
 import './App.css';
 import axios from 'axios';
-import { useEffect } from 'react';
+import { useEffect, createContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateProducts } from './store/products';
 import { updateBrands } from './store/brands';
 import { updateModels } from './store/models';
+import { updateBox } from './store/box';
 import Navbar from './components/Navbar/Navbar';
 import ProductListingPage from './components/ProductListingPage/ProductListingPage';
 import {
@@ -13,13 +14,44 @@ import {
   getUniqueArray,
 } from './helper';
 
+export const AppContext = createContext();
+
 function App() {
   const dispatch = useDispatch();
   const activePage = useSelector((state) => state.products.activePage);
   const selectedBrands = useSelector((state) => state.brands.selected);
   const selectedModels = useSelector((state) => state.models.selected);
   const sort = useSelector((state) => state.sort);
+  const box = useSelector((state) => state.box);
   const itemsPerPage = 12;
+
+  const addProductToBox = (product) => {
+    let currentBox = [...box];
+    const currentProduct = currentBox.find(
+      (currentProduct) => currentProduct.id === product.id
+    );
+    const copyOfCurrentProduct = currentProduct ? { ...currentProduct } : null;
+    const currentProductIndex = currentBox.findIndex(
+      (currentProduct) => currentProduct.id === product.id
+    );
+
+    if (copyOfCurrentProduct) {
+      copyOfCurrentProduct.count = copyOfCurrentProduct.count + 1;
+
+      currentBox[currentProductIndex] = copyOfCurrentProduct;
+    } else {
+      currentBox.push({
+        id: product.id,
+        count: 1,
+        detail: { ...product },
+      });
+    }
+
+    dispatch(updateBox(currentBox));
+    localStorage.setItem('boxItems', JSON.stringify(currentBox));
+  };
+
+  const context = { addProductToBox };
 
   useEffect(() => {
     const getProducts = async () => {
@@ -102,9 +134,11 @@ function App() {
 
   return (
     <div className="bg-[#F9F9F9]">
-      <Navbar />
+      <AppContext.Provider value={context}>
+        <Navbar />
 
-      <ProductListingPage />
+        <ProductListingPage />
+      </AppContext.Provider>
     </div>
   );
 }
