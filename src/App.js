@@ -25,7 +25,7 @@ function App() {
   const box = useSelector((state) => state.box);
   const itemsPerPage = 12;
 
-  const addProductToBox = (product) => {
+  const addProductToBox = (product, action) => {
     let currentBox = [...box];
     const currentProduct = currentBox.find(
       (currentProduct) => currentProduct.id === product.id
@@ -35,16 +35,27 @@ function App() {
       (currentProduct) => currentProduct.id === product.id
     );
 
-    if (copyOfCurrentProduct) {
-      copyOfCurrentProduct.count = copyOfCurrentProduct.count + 1;
+    if (
+      (copyOfCurrentProduct && action === 'increase') ||
+      (action === 'decrease' && copyOfCurrentProduct.count > 1)
+    ) {
+      if (action === 'increase') {
+        copyOfCurrentProduct.count = copyOfCurrentProduct.count + 1;
+      } else {
+        copyOfCurrentProduct.count = copyOfCurrentProduct.count - 1;
+      }
 
       currentBox[currentProductIndex] = copyOfCurrentProduct;
     } else {
-      currentBox.push({
-        id: product.id,
-        count: 1,
-        detail: { ...product },
-      });
+      if (action === 'increase') {
+        currentBox.push({
+          id: product.id,
+          count: 1,
+          detail: { ...product },
+        });
+      } else {
+        currentBox = currentBox.filter((boxItem) => boxItem.id !== product.id);
+      }
     }
 
     dispatch(updateBox(currentBox));

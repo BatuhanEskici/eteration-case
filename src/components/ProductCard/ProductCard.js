@@ -21,7 +21,7 @@ export default function ProductCard({ className, product }) {
       <button
         className="bg-[#2A59FE] text-white px-3 py-1 rounded w-full text-center"
         onClick={() => {
-          context.addProductToBox(product);
+          context.addProductToBox(product, 'increase');
         }}
       >
         Add to Cart

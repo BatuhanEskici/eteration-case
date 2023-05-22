@@ -1,6 +1,9 @@
 import { useSelector } from 'react-redux';
+import { useContext } from 'react';
+import { AppContext } from '../../App';
 
 export default function Checkout() {
+  const context = useContext(AppContext);
   const box = useSelector((state) => state.box);
 
   return box.length ? (
@@ -19,7 +22,12 @@ export default function Checkout() {
             </div>
 
             <div className="flex items-center">
-              <button className="bg-slate-200 w-[25px] h-[25px] flex items-center justify-center rounded">
+              <button
+                className="bg-slate-200 w-[25px] h-[25px] flex items-center justify-center rounded"
+                onClick={() => {
+                  context.addProductToBox(product, 'decrease');
+                }}
+              >
                 -
               </button>
 
@@ -27,7 +35,12 @@ export default function Checkout() {
                 {product.count}
               </span>
 
-              <button className="bg-slate-200 w-[25px] h-[25px] flex items-center justify-center rounded">
+              <button
+                className="bg-slate-200 w-[25px] h-[25px] flex items-center justify-center rounded"
+                onClick={() => {
+                  context.addProductToBox(product, 'increase');
+                }}
+              >
                 +
               </button>
             </div>
