@@ -4,21 +4,18 @@ import { useDispatch } from 'react-redux';
 import { updateActivePage } from '../../stores/products';
 
 function Pagination({ className }) {
-  const pageCount = useSelector((state) => state.products.pageCount);
-  const activePage = useSelector((state) => state.products.activePage);
-  const hasPrevPage = useSelector((state) => state.products.hasPrevPage);
-  const hasNextPage = useSelector((state) => state.products.hasNextPage);
+  const products = useSelector((state) => state.products);
   const [pages] = useState(
-    Array.from({ length: pageCount }, (_, pageIndex) => pageIndex + 1)
+    Array.from({ length: products.pageCount }, (_, pageIndex) => pageIndex + 1)
   );
   const [pageButtons, setPageButtons] = useState([]);
   const showFirstPageButton = useMemo(
-    () => pageCount - activePage < 2,
-    [pageCount, activePage]
+    () => products.pageCount - products.activePage < 2,
+    [products.pageCount, products.activePage]
   );
   const showLastPageButton = useMemo(
-    () => pageCount - activePage > 1,
-    [pageCount, activePage]
+    () => products.pageCount - products.activePage > 1,
+    [products.pageCount, products.activePage]
   );
 
   const dispatch = useDispatch();
@@ -33,55 +30,61 @@ function Pagination({ className }) {
   const initPagination = useCallback(() => {
     const pageButtons = [];
 
-    if (activePage === pageCount) {
+    if (products.activePage === products.pageCount) {
       pageButtons.push({
         className: 'py-1 px-3 rounded text-slate-500',
-        pageNumber: activePage - 2,
+        pageNumber: products.activePage - 2,
       });
     }
 
-    if (hasPrevPage) {
+    if (products.hasPrevPage) {
       pageButtons.push({
         className: 'py-1 px-3 rounded text-slate-500',
-        pageNumber: activePage - 1,
+        pageNumber: products.activePage - 1,
       });
     }
 
     pageButtons.push({
       className: 'py-1 px-3 rounded bg-white shadow-lg text-[#2A59FE]',
-      pageNumber: activePage,
+      pageNumber: products.activePage,
     });
 
-    if (hasNextPage) {
+    if (products.hasNextPage) {
       pageButtons.push({
         className: 'py-1 px-3 rounded text-slate-500',
-        pageNumber: activePage + 1,
+        pageNumber: products.activePage + 1,
       });
     }
 
-    if (activePage === 1 && pages.includes(3)) {
+    if (products.activePage === 1 && pages.includes(3)) {
       pageButtons.push({
         className: 'py-1 px-3 rounded text-slate-500',
-        pageNumber: activePage + 2,
+        pageNumber: products.activePage + 2,
       });
     }
 
     setPageButtons(pageButtons);
-  }, [activePage, hasNextPage, hasPrevPage, pages, pageCount]);
+  }, [
+    products.activePage,
+    products.hasNextPage,
+    products.hasPrevPage,
+    pages,
+    products.pageCount,
+  ]);
 
   useEffect(() => {
     initPagination();
-  }, [initPagination, activePage]);
+  }, [initPagination, products.activePage]);
 
   return (
     <div className={`${className} flex items-center justify-center w-full`}>
       <button
-        disabled={!hasPrevPage}
+        disabled={!products.hasPrevPage}
         className={`${
-          hasPrevPage ? 'text-slate-800' : 'text-slate-500'
+          products.hasPrevPage ? 'text-slate-800' : 'text-slate-500'
         } py-1 px-3`}
         onClick={() => {
-          setActivePage(activePage - 1);
+          setActivePage(products.activePage - 1);
         }}
       >
         &lt;
@@ -120,20 +123,20 @@ function Pagination({ className }) {
         <button
           className="py-1 px-3 rounded text-slate-500"
           onClick={() => {
-            setActivePage(pageCount);
+            setActivePage(products.pageCount);
           }}
         >
-          {pageCount}
+          {products.pageCount}
         </button>
       )}
 
       <button
-        disabled={!hasNextPage}
+        disabled={!products.hasNextPage}
         className={`${
-          hasNextPage ? 'text-slate-800' : 'text-slate-500'
+          products.hasNextPage ? 'text-slate-800' : 'text-slate-500'
         } py-1 px-3`}
         onClick={() => {
-          setActivePage(activePage + 1);
+          setActivePage(products.activePage + 1);
         }}
       >
         &gt;
