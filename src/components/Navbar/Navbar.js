@@ -1,4 +1,9 @@
+import { useContext } from 'react';
+import { AppContext } from '../../App';
+
 export default function Navbar() {
+  const context = useContext(AppContext);
+
   return (
     <div className="bg-[#2A59FE] py-1">
       <div className="flex items-center w-4/5 mx-auto">
@@ -9,7 +14,11 @@ export default function Navbar() {
         </div>
 
         <div className="w-[20%] text-white pl-6">
-          <span>117.000</span>
+          <span>
+            {context.totalPrice
+              ? `${context.totalPrice.toLocaleString()} TL`
+              : ''}
+          </span>
 
           <span className="ml-4">Batuhan</span>
         </div>

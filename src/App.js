@@ -1,6 +1,6 @@
 import './App.css';
 import axios from 'axios';
-import { useEffect, createContext } from 'react';
+import { useEffect, createContext, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateProducts } from './store/products';
 import { updateBrands } from './store/brands';
@@ -12,6 +12,7 @@ import {
   getProductItemsPageCount,
   sortProductItems,
   getUniqueArray,
+  calculateTotalPrice,
 } from './helper';
 
 export const AppContext = createContext();
@@ -23,6 +24,7 @@ function App() {
   const selectedModels = useSelector((state) => state.models.selected);
   const sort = useSelector((state) => state.sort);
   const box = useSelector((state) => state.box);
+  const totalPrice = useMemo(() => calculateTotalPrice(box), [box]);
   const itemsPerPage = 12;
 
   const addProductToBox = (product, action) => {
@@ -62,7 +64,7 @@ function App() {
     localStorage.setItem('boxItems', JSON.stringify(currentBox));
   };
 
-  const context = { addProductToBox };
+  const context = { addProductToBox, totalPrice };
 
   useEffect(() => {
     const getProducts = async () => {

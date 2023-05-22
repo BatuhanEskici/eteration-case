@@ -44,3 +44,9 @@ export const sortProductItems = (products, sort) => {
 export const getUniqueArray = (data) => {
   return data.filter((value, index, array) => array.indexOf(value) === index);
 };
+
+export const calculateTotalPrice = (products) => {
+  return products.reduce((total, product) => {
+    return total + Number(product.detail.price * product.count);
+  }, 0);
+};
