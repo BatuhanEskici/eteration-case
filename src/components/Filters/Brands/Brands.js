@@ -20,7 +20,7 @@ function Brands({ className }) {
       return;
     }
 
-    const filteredBrands = brands.all.filter((brand) =>
+    const filteredBrands = brands.init.filter((brand) =>
       brand.toLowerCase().includes(searchedText)
     );
 

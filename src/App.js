@@ -60,6 +60,7 @@ function App() {
         if (!selectedBrands.length) {
           let newBrands = productItems.map((productItem) => productItem.brand);
           newBrands = getUniqueArray(newBrands);
+          newBrands.sort();
 
           dispatch(
             updateBrands({
