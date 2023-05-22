@@ -1,4 +1,9 @@
-export default function Brands({ className }) {
+import { memo } from 'react';
+import { useSelector } from 'react-redux';
+
+function Brands({ className }) {
+  const brands = useSelector((state) => state.brands.all);
+
   return (
     <div className={`${className}`}>
       <span className="text-sm text-slate-500">Brands</span>
@@ -11,37 +16,22 @@ export default function Brands({ className }) {
         />
 
         <div className="max-h-[88px] overflow-auto">
-          <div className="flex items-center">
-            <input type="checkbox" name="brand" value="Apple" />
+          {brands.map((brand, brandIndex) => {
+            return (
+              <div
+                className={`${brandIndex !== 0 && 'mt-2'} flex items-center`}
+                key={brandIndex}
+              >
+                <input type="checkbox" name="brand" value={brand} />
 
-            <label className="ml-2">Apple</label>
-          </div>
-
-          <div className="flex items-center mt-2">
-            <input type="checkbox" name="brand" value="Samsung" />
-
-            <label className="ml-2">Samsung</label>
-          </div>
-
-          <div className="flex items-center mt-2">
-            <input type="checkbox" name="brand" value="Huawei" />
-
-            <label className="ml-2">Huawei</label>
-          </div>
-
-          <div className="flex items-center mt-2">
-            <input type="checkbox" name="brand" value="Huawei" />
-
-            <label className="ml-2">Huawei</label>
-          </div>
-
-          <div className="flex items-center mt-2">
-            <input type="checkbox" name="brand" value="Huawei" />
-
-            <label className="ml-2">Huawei</label>
-          </div>
+                <label className="ml-2">{brand}</label>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>
   );
 }
+
+export default memo(Brands);

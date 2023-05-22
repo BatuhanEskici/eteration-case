@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateProducts } from './stores/products';
+import { updateBrands } from './stores/brands';
 import Navbar from './components/Navbar/Navbar';
 import ProductListingPage from './components/ProductListingPage/ProductListingPage';
 import { getProductItemsPageCount, sortProductItems } from './helper';
@@ -10,6 +11,7 @@ import { getProductItemsPageCount, sortProductItems } from './helper';
 function App() {
   const dispatch = useDispatch();
   const activePage = useSelector((state) => state.products.activePage);
+  const brands = useSelector((state) => state.brands.all);
   const itemsPerPage = 12;
   const sort = useSelector((state) => state.sort);
 
@@ -23,19 +25,15 @@ function App() {
           productItemsApiResponse.data,
           sort
         );
-
         const pagedItems = productItems.slice(
           (activePage - 1) * 12,
           activePage * itemsPerPage
         );
-
         const pageCount = getProductItemsPageCount(
           productItems.length,
           itemsPerPage
         );
-
         const hasPrevPage = activePage > 1;
-
         const hasNextPage = activePage < pageCount;
 
         dispatch(
@@ -46,6 +44,14 @@ function App() {
             pageCount,
             hasPrevPage,
             hasNextPage,
+          })
+        );
+
+        const newBrands = productItems.map((productItem) => productItem.brand);
+        dispatch(
+          updateBrands({
+            ...brands,
+            all: newBrands,
           })
         );
       } catch (error) {
