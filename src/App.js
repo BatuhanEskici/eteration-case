@@ -2,13 +2,7 @@ import './App.css';
 import axios from 'axios';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  updateItems,
-  updatePagedItems,
-  updatePageCount,
-  updateHasPrevPage,
-  updateHasNextPage,
-} from './stores/products';
+import { updateProducts } from './stores/products';
 import Navbar from './components/Navbar/Navbar';
 import ProductListingPage from './components/ProductListingPage/ProductListingPage';
 import { getProductItemsPageCount, sortProductItems } from './helper';
@@ -29,25 +23,31 @@ function App() {
           productItemsApiResponse.data,
           sort
         );
-        dispatch(updateItems(productItems));
 
         const pagedItems = productItems.slice(
           (activePage - 1) * 12,
           activePage * itemsPerPage
         );
-        dispatch(updatePagedItems(pagedItems));
 
         const pageCount = getProductItemsPageCount(
           productItems.length,
           itemsPerPage
         );
-        dispatch(updatePageCount(pageCount));
 
         const hasPrevPage = activePage > 1;
-        dispatch(updateHasPrevPage(hasPrevPage));
 
         const hasNextPage = activePage < pageCount;
-        dispatch(updateHasNextPage(hasNextPage));
+
+        dispatch(
+          updateProducts({
+            items: productItems,
+            activePage,
+            pagedItems,
+            pageCount,
+            hasPrevPage,
+            hasNextPage,
+          })
+        );
       } catch (error) {
         console.log(error);
       }
