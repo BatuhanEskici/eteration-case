@@ -31,7 +31,7 @@ function Pagination({ className }) {
   const initPagination = useCallback(() => {
     const pageButtons = [];
 
-    if (products.activePage === products.pageCount && products.pageCount > 1) {
+    if (products.activePage === products.pageCount && products.pageCount > 3) {
       pageButtons.push({
         className: 'py-1 px-3 rounded text-slate-500',
         pageNumber: products.activePage - 2,
