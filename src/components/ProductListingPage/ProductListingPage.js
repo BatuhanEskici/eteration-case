@@ -9,46 +9,52 @@ import Checkout from '../Checkout/Checkout';
 import Pagination from '../Pagination/Pagination';
 
 export default function ProductListingPage() {
-    const pagedItems = useSelector(state => state.products.pagedItems);
-    const [hasProduct, setHasProduct] = useState(false);
+  const pagedItems = useSelector((state) => state.products.pagedItems);
+  const [hasProduct, setHasProduct] = useState(false);
 
-    useEffect(() => {
-        setHasProduct(pagedItems.length)
-    }, [pagedItems]);
+  useEffect(() => {
+    setHasProduct(pagedItems.length);
+  }, [pagedItems]);
 
-    const getProductCardClass = (productIndex) => {
-        if ((productIndex + 1) > 4) {
-            return 'mt-4';
-        }
-
-        return;
+  const getProductCardClass = (productIndex) => {
+    if (productIndex + 1 > 4) {
+      return 'mt-4';
     }
 
-    return (
-        <div className='flex w-4/5 mx-auto mt-6'>
-            <div className='w-[20%] pr-6'>
-                <Sort />
+    return;
+  };
 
-                <Brands className="mt-5" />
+  return (
+    <div className="flex w-4/5 mx-auto mt-6">
+      <div className="w-[20%] pr-6">
+        <Sort />
 
-                <Model className="mt-5" />
-            </div>
+        <Brands className="mt-5" />
 
-            <div className={`${pagedItems.length > 3 && "justify-between"} w-[60%] flex flex-wrap mt-7`}>
-                {
-                    pagedItems.map((product, productIndex) =>
-                        <ProductCard key={product.id} product={product} className={getProductCardClass(productIndex)} />
-                    )
-                }
+        <Model className="mt-5" />
+      </div>
 
-                {(hasProduct) && <Pagination className="my-4" />}
-            </div>
+      <div
+        className={`${
+          pagedItems.length > 3 && 'justify-between'
+        } w-[60%] flex flex-wrap mt-7`}
+      >
+        {pagedItems.map((product, productIndex) => (
+          <ProductCard
+            key={product.id}
+            product={product}
+            className={getProductCardClass(productIndex)}
+          />
+        ))}
 
-            <div className='w-[20%] mt-7 pl-6'>
-                <Box />
+        {hasProduct && <Pagination className="my-4" />}
+      </div>
 
-                <Checkout className="mt-6" />
-            </div>
-        </div>
-    );
+      <div className="w-[20%] mt-7 pl-6">
+        <Box />
+
+        <Checkout className="mt-6" />
+      </div>
+    </div>
+  );
 }
