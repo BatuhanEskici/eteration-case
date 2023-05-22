@@ -40,3 +40,7 @@ export const sortProductItems = (products, sort) => {
 
   return sortedProducts;
 };
+
+export const getUniqueArray = (data) => {
+  return data.filter((value, index, array) => array.indexOf(value) === index);
+};

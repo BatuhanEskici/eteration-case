@@ -1,4 +1,8 @@
-import { getProductItemsPageCount, sortProductItems } from './helper';
+import {
+  getProductItemsPageCount,
+  sortProductItems,
+  getUniqueArray,
+} from './helper';
 
 test('get product items page count', () => {
   const data = [
@@ -49,4 +53,11 @@ test('sort product items', () => {
   const result = [product1, product2];
 
   expect(sortProductItems(products, sort)).toEqual(result);
+});
+
+test('get unique array', () => {
+  const data = ['A', 'B', 'A'];
+  const result = ['A', 'B'];
+
+  expect(getUniqueArray(data)).toEqual(result);
 });

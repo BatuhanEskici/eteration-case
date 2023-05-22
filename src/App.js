@@ -6,7 +6,11 @@ import { updateProducts } from './stores/products';
 import { updateBrands } from './stores/brands';
 import Navbar from './components/Navbar/Navbar';
 import ProductListingPage from './components/ProductListingPage/ProductListingPage';
-import { getProductItemsPageCount, sortProductItems } from './helper';
+import {
+  getProductItemsPageCount,
+  sortProductItems,
+  getUniqueArray,
+} from './helper';
 
 function App() {
   const dispatch = useDispatch();
@@ -54,9 +58,9 @@ function App() {
         );
 
         if (!selectedBrands.length) {
-          const newBrands = productItems.map(
-            (productItem) => productItem.brand
-          );
+          let newBrands = productItems.map((productItem) => productItem.brand);
+          newBrands = getUniqueArray(newBrands);
+
           dispatch(
             updateBrands({
               all: newBrands,
