@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { updateSort } from '../../../stores/sort';
+import { updateSort } from '../../../store/sort';
 
 export default function Sort() {
   const dispatch = useDispatch();

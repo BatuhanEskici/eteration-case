@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateModels } from '../../../stores/models';
+import { updateModels } from '../../../store/models';
 
 function Model({ className }) {
   const dispatch = useDispatch();

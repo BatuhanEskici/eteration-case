@@ -2,9 +2,9 @@ import './App.css';
 import axios from 'axios';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateProducts } from './stores/products';
-import { updateBrands } from './stores/brands';
-import { updateModels } from './stores/models';
+import { updateProducts } from './store/products';
+import { updateBrands } from './store/brands';
+import { updateModels } from './store/models';
 import Navbar from './components/Navbar/Navbar';
 import ProductListingPage from './components/ProductListingPage/ProductListingPage';
 import {

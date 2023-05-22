@@ -1,7 +1,7 @@
 import { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { updateActivePage } from '../../stores/products';
+import { updateActivePage } from '../../store/products';
 
 function Pagination({ className }) {
   const products = useSelector((state) => state.products);

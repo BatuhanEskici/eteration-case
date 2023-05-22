@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateBrands } from '../../../stores/brands';
+import { updateBrands } from '../../../store/brands';
 
 function Brands({ className }) {
   const dispatch = useDispatch();
