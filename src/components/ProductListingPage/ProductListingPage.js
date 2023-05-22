@@ -21,6 +21,10 @@ export default function ProductListingPage() {
       return 'mt-4';
     }
 
+    if (pagedItems.length > 1 && pagedItems.length < 4) {
+      return 'ml-4';
+    }
+
     return;
   };
 

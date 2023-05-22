@@ -3,7 +3,7 @@ export default function ProductCard({ className, product }) {
     <div
       className={`${
         className || ''
-      } bg-white p-2 flex flex-col items-start w-[23%]`}
+      } bg-white p-2 flex flex-col items-start w-[23%] max-h-[43%]`}
     >
       <img src={product.image} alt="product" className="w-full object-cover" />
 

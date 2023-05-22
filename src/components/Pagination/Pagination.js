@@ -10,7 +10,8 @@ function Pagination({ className }) {
   );
   const [pageButtons, setPageButtons] = useState([]);
   const showFirstPageButton = useMemo(
-    () => products.pageCount - products.activePage < 2,
+    () =>
+      products.pageCount > 3 && products.pageCount - products.activePage < 2,
     [products.pageCount, products.activePage]
   );
   const showLastPageButton = useMemo(
@@ -30,7 +31,7 @@ function Pagination({ className }) {
   const initPagination = useCallback(() => {
     const pageButtons = [];
 
-    if (products.activePage === products.pageCount) {
+    if (products.activePage === products.pageCount && products.pageCount > 1) {
       pageButtons.push({
         className: 'py-1 px-3 rounded text-slate-500',
         pageNumber: products.activePage - 2,
@@ -56,7 +57,11 @@ function Pagination({ className }) {
       });
     }
 
-    if (products.activePage === 1 && pages.includes(3)) {
+    if (
+      products.pageCount > 3 &&
+      products.activePage === 1 &&
+      pages.includes(3)
+    ) {
       pageButtons.push({
         className: 'py-1 px-3 rounded text-slate-500',
         pageNumber: products.activePage + 2,

@@ -11,9 +11,9 @@ import { getProductItemsPageCount, sortProductItems } from './helper';
 function App() {
   const dispatch = useDispatch();
   const activePage = useSelector((state) => state.products.activePage);
-  const brands = useSelector((state) => state.brands.all);
-  const itemsPerPage = 12;
+  const selectedBrands = useSelector((state) => state.brands.selected);
   const sort = useSelector((state) => state.sort);
+  const itemsPerPage = 12;
 
   useEffect(() => {
     const getProducts = async () => {
@@ -21,18 +21,24 @@ function App() {
         const productItemsApiResponse = await axios.get(
           'https://5fc9346b2af77700165ae514.mockapi.io/products'
         );
-        const productItems = sortProductItems(
-          productItemsApiResponse.data,
-          sort
-        );
+        let productItems = sortProductItems(productItemsApiResponse.data, sort);
+
+        if (selectedBrands.length) {
+          productItems = productItems.filter((product) =>
+            selectedBrands.includes(product.brand)
+          );
+        }
+
         const pagedItems = productItems.slice(
           (activePage - 1) * 12,
           activePage * itemsPerPage
         );
+
         const pageCount = getProductItemsPageCount(
           productItems.length,
           itemsPerPage
         );
+
         const hasPrevPage = activePage > 1;
         const hasNextPage = activePage < pageCount;
 
@@ -47,20 +53,24 @@ function App() {
           })
         );
 
-        const newBrands = productItems.map((productItem) => productItem.brand);
-        dispatch(
-          updateBrands({
-            ...brands,
-            all: newBrands,
-          })
-        );
+        if (!selectedBrands.length) {
+          const newBrands = productItems.map(
+            (productItem) => productItem.brand
+          );
+          dispatch(
+            updateBrands({
+              all: newBrands,
+              selected: selectedBrands,
+            })
+          );
+        }
       } catch (error) {
         console.log(error);
       }
     };
 
     getProducts();
-  }, [dispatch, activePage, sort]);
+  }, [dispatch, activePage, sort, selectedBrands]);
 
   return (
     <div className="bg-[#F9F9F9]">
