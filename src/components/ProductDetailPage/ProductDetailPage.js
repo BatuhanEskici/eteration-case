@@ -20,9 +20,9 @@ function ProductDetailPage() {
   }, [currentProduct, currentProductId, products.items]);
 
   return (
-    <div className="flex w-4/5 mx-auto mt-6">
-      <div className="w-[80%] bg-white shadow-lg mt-7 flex items-center">
-        <div className="w-[50%] h-full p-3">
+    <div className="lg:flex w-4/5 mx-auto mt-6">
+      <div className="lg:w-[80%] bg-white shadow-lg mt-7 lg:flex items-center">
+        <div className="lg:w-[50%] h-full p-3">
           <img
             src={currentProduct.image}
             alt="product"
@@ -30,7 +30,7 @@ function ProductDetailPage() {
           />
         </div>
 
-        <div className="w-[50%] h-full p-3">
+        <div className="lg:w-[50%] h-full p-3">
           <p className="my-2 text-xl">{currentProduct.name}</p>
 
           <span className="text-[#2A59FE] text-xl block mt-2">
@@ -51,7 +51,7 @@ function ProductDetailPage() {
         </div>
       </div>
 
-      <div className="w-[20%] mt-7 pl-6">
+      <div className="lg:w-[20%] mt-7 lg:pl-6">
         <Box />
 
         <Checkout className="mt-6" />

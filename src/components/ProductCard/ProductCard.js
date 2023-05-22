@@ -8,7 +8,7 @@ export default function ProductCard({ className, product, onClick }) {
     <div
       className={`${
         className || ''
-      } bg-white p-2 flex flex-col items-start w-[23%] max-h-[43%]`}
+      } bg-white p-2 flex flex-col items-start lg:w-[23%] max-h-[43%]`}
       navigatedetail="1"
       onClick={(event) => {
         onClick(event, product.id);

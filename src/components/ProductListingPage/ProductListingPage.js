@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router';
 import Sort from '../Filters/Sort/Sort';
 import Brands from '../Filters/Brands/Brands';
@@ -13,6 +13,7 @@ export default function ProductListingPage() {
   const navigate = useNavigate();
   const pagedItems = useSelector((state) => state.products.pagedItems);
   const [hasProduct, setHasProduct] = useState(false);
+  const windowSize = useRef([window.innerWidth, window.innerHeight]);
 
   const handleProductClick = (event, productId) => {
     const canNavigate = event.target.getAttribute('navigatedetail');
@@ -29,11 +30,15 @@ export default function ProductListingPage() {
   const getProductCardClass = (productIndex) => {
     let className = '';
 
-    if (productIndex + 1 > 4) {
+    if (productIndex + 1 > 4 || windowSize.current[0] < 1024) {
       className += 'mt-4';
     }
 
-    if (pagedItems.length > 1 && productIndex % 4 !== 0) {
+    if (
+      pagedItems.length > 1 &&
+      productIndex % 4 !== 0 &&
+      windowSize.current[0] > 1024
+    ) {
       className += ' ml-4';
     }
 
@@ -41,8 +46,8 @@ export default function ProductListingPage() {
   };
 
   return (
-    <div className="flex w-4/5 mx-auto mt-6">
-      <div className="w-[20%] pr-6">
+    <div className="lg:flex w-4/5 mx-auto mt-6">
+      <div className="lg:w-[20%] lg:pr-6">
         <Sort />
 
         <Brands className="mt-5" />
@@ -50,7 +55,7 @@ export default function ProductListingPage() {
         <Models className="mt-5" />
       </div>
 
-      <div className="w-[60%] flex flex-wrap mt-7">
+      <div className="lg:w-[60%] flex flex-wrap mt-7">
         {pagedItems.map((product, productIndex) => (
           <ProductCard
             key={product.id}
@@ -63,7 +68,7 @@ export default function ProductListingPage() {
         {hasProduct && <Pagination className="my-4" />}
       </div>
 
-      <div className="w-[20%] mt-7 pl-6">
+      <div className="lg:w-[20%] lg:mt-7 lg:pl-6">
         <Box />
 
         <Checkout className="mt-6" />
