@@ -6,6 +6,32 @@ function Brands({ className }) {
   const dispatch = useDispatch();
   const brands = useSelector((state) => state.brands);
 
+  const handleBrandSearch = (event) => {
+    const searchedText = event.target.value;
+
+    if (!searchedText) {
+      dispatch(
+        updateBrands({
+          ...brands,
+          all: brands.init,
+        })
+      );
+
+      return;
+    }
+
+    const filteredBrands = brands.all.filter((brand) =>
+      brand.toLowerCase().includes(searchedText)
+    );
+
+    dispatch(
+      updateBrands({
+        ...brands,
+        all: filteredBrands,
+      })
+    );
+  };
+
   const handleSelectBrand = (brand) => {
     let selectedBrands = [...brands.selected];
 
@@ -19,7 +45,7 @@ function Brands({ className }) {
 
     dispatch(
       updateBrands({
-        all: brands.all,
+        ...brands,
         selected: selectedBrands,
       })
     );
@@ -34,6 +60,7 @@ function Brands({ className }) {
           type="text"
           placeholder="Search"
           className="p-1 mb-3 bg-[#F9F9F9]"
+          onInput={handleBrandSearch}
         />
 
         <div className="max-h-[88px] overflow-auto">

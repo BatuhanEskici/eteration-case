@@ -63,6 +63,7 @@ function App() {
 
           dispatch(
             updateBrands({
+              init: newBrands,
               all: newBrands,
               selected: selectedBrands,
             })

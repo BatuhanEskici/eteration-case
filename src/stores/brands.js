@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialBrandsState = {
+  init: [],
   all: [],
   selected: [],
 };
