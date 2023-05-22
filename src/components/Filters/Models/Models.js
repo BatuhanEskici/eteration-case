@@ -7,7 +7,7 @@ function Model({ className }) {
   const models = useSelector((state) => state.models);
 
   const handleModelSearch = (event) => {
-    const searchedText = event.target.value;
+    const searchedText = event.target.value.toLowerCase();
 
     if (!searchedText) {
       dispatch(

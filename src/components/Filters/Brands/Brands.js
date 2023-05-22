@@ -7,7 +7,7 @@ function Brands({ className }) {
   const brands = useSelector((state) => state.brands);
 
   const handleBrandSearch = (event) => {
-    const searchedText = event.target.value;
+    const searchedText = event.target.value.toLowerCase();
 
     if (!searchedText) {
       dispatch(
