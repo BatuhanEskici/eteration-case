@@ -1,7 +1,7 @@
 import { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { updateActivePage } from '../../stores/store';
+import { updateActivePage } from '../../stores/products';
 
 function Pagination({ className }) {
   const pageCount = useSelector((state) => state.products.pageCount);

@@ -8,15 +8,16 @@ import {
   updatePageCount,
   updateHasPrevPage,
   updateHasNextPage,
-} from './stores/store';
+} from './stores/products';
 import Navbar from './components/Navbar/Navbar';
 import ProductListingPage from './components/ProductListingPage/ProductListingPage';
-import { getProductItemsPageCount } from './helper';
+import { getProductItemsPageCount, sortProductItems } from './helper';
 
 function App() {
   const dispatch = useDispatch();
   const activePage = useSelector((state) => state.products.activePage);
   const itemsPerPage = 12;
+  const sort = useSelector((state) => state.sort);
 
   useEffect(() => {
     const getProducts = async () => {
@@ -24,7 +25,10 @@ function App() {
         const productItemsApiResponse = await axios.get(
           'https://5fc9346b2af77700165ae514.mockapi.io/products'
         );
-        const productItems = productItemsApiResponse.data;
+        const productItems = sortProductItems(
+          productItemsApiResponse.data,
+          sort
+        );
         dispatch(updateItems(productItems));
 
         const pagedItems = productItems.slice(
@@ -50,7 +54,7 @@ function App() {
     };
 
     getProducts();
-  }, [dispatch, activePage]);
+  }, [dispatch, activePage, sort]);
 
   return (
     <div className="bg-[#F9F9F9]">

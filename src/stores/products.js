@@ -10,8 +10,6 @@ const initialProductsState = {
   isReady: false,
 };
 
-// const initialSortState = 'old_to_new'
-
 // const initialFiltersState = []
 
 // const initialBoxState = {
