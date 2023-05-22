@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { isSortRadioChecked } from '../../../helper';
 import { updateSort } from '../../../stores/sort';
 
 export default function Sort() {
@@ -60,7 +59,7 @@ export default function Sort() {
                 type="radio"
                 name="sort"
                 value={sortRadio.value}
-                checked={isSortRadioChecked(sort.value, sortRadio.value)}
+                checked={sort.value === sortRadio.value}
                 onChange={() => {
                   handleRadioChange(sortRadio);
                 }}

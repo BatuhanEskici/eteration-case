@@ -40,7 +40,3 @@ export const sortProductItems = (products, sort) => {
 
   return sortedProducts;
 };
-
-export const isSortRadioChecked = (currentSortState, radioValue) => {
-  return currentSortState === radioValue;
-};

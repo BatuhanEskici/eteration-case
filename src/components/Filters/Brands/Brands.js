@@ -7,8 +7,15 @@ function Brands({ className }) {
   const brands = useSelector((state) => state.brands);
 
   const handleSelectBrand = (brand) => {
-    const selectedBrands = [...brands.selected];
-    selectedBrands.push(brand);
+    let selectedBrands = [...brands.selected];
+
+    if (!selectedBrands.includes(brand)) {
+      selectedBrands.push(brand);
+    } else {
+      selectedBrands = selectedBrands.filter(
+        (selectedBrand) => selectedBrand !== brand
+      );
+    }
 
     dispatch(
       updateBrands({
@@ -39,7 +46,15 @@ function Brands({ className }) {
                   handleSelectBrand(brand);
                 }}
               >
-                <input type="checkbox" name="brand" value={brand} />
+                <input
+                  type="checkbox"
+                  name="brand"
+                  value={brand}
+                  checked={brands.selected.includes(brand)}
+                  onChange={() => {
+                    handleSelectBrand(brand);
+                  }}
+                />
 
                 <label className="ml-2">{brand}</label>
               </div>
