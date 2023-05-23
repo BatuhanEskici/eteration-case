@@ -29,6 +29,7 @@ function App() {
   const totalPrice = useMemo(() => calculateTotalPrice(box), [box]);
   const [itemsPerPage] = useState(12);
   const [productSearchText, setProductSearchText] = useState('');
+  const [isReady, setIsReady] = useState(false);
 
   const addProductToBox = (product, action) => {
     let currentBox = [...box];
@@ -74,6 +75,8 @@ function App() {
   const context = { addProductToBox, totalPrice, handleProductSearch };
 
   useEffect(() => {
+    setIsReady(false);
+
     const getProducts = async () => {
       try {
         const productItemsApiResponse = await axios.get(
@@ -156,6 +159,7 @@ function App() {
     };
 
     getProducts();
+    setIsReady(true);
   }, [
     dispatch,
     activePage,
@@ -180,13 +184,17 @@ function App() {
       <AppContext.Provider value={context}>
         <Navbar />
 
-        <Router>
-          <Routes>
-            <Route path="/" element={<ProductListingPage />} />
+        {isReady ? (
+          <Router>
+            <Routes>
+              <Route path="/" element={<ProductListingPage />} />
 
-            <Route path="/product/:id" element={<ProductDetailPage />} />
-          </Routes>
-        </Router>
+              <Route path="/product/:id" element={<ProductDetailPage />} />
+            </Routes>
+          </Router>
+        ) : (
+          ''
+        )}
       </AppContext.Provider>
     </div>
   );

@@ -13,7 +13,7 @@ function Pagination({ className }) {
     [products.pageCount, products.activePage]
   );
   const showLastPageButton = useMemo(
-    () => products.pageCount - products.activePage > 2,
+    () => products.pageCount - products.activePage > 1,
     [products.pageCount, products.activePage]
   );
 
