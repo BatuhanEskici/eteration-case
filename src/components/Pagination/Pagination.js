@@ -4,6 +4,9 @@ import { updateActivePage } from '../../store/products';
 
 function Pagination({ className }) {
   const products = useSelector((state) => state.products);
+  const [pages] = useState(
+    Array.from({ length: products.pageCount }, (_, pageIndex) => pageIndex + 1)
+  );
   const [pageButtons, setPageButtons] = useState([]);
   const showFirstPageButton = useMemo(
     () => products.pageCount > 3 && products.activePage > 2,
@@ -26,6 +29,13 @@ function Pagination({ className }) {
   const initPagination = useCallback(() => {
     const pageButtons = [];
 
+    if (products.activePage === products.pageCount && products.pageCount > 3) {
+      pageButtons.push({
+        className: 'py-1 px-3 rounded text-slate-500',
+        pageNumber: products.activePage - 2,
+      });
+    }
+
     if (products.hasPrevPage) {
       pageButtons.push({
         className: 'py-1 px-3 rounded text-slate-500',
@@ -45,8 +55,25 @@ function Pagination({ className }) {
       });
     }
 
+    if (
+      products.pageCount > 3 &&
+      products.activePage === 1 &&
+      pages.includes(3)
+    ) {
+      pageButtons.push({
+        className: 'py-1 px-3 rounded text-slate-500',
+        pageNumber: products.activePage + 2,
+      });
+    }
+
     setPageButtons(pageButtons);
-  }, [products.activePage, products.hasNextPage, products.hasPrevPage]);
+  }, [
+    products.activePage,
+    products.hasNextPage,
+    products.hasPrevPage,
+    pages,
+    products.pageCount,
+  ]);
 
   useEffect(() => {
     initPagination();
