@@ -72,7 +72,7 @@ export default function ProductListingPage() {
           />
         ))}
 
-        {hasProduct && <Pagination className="my-4" />}
+        {hasProduct ? <Pagination className="my-4" /> : ''}
       </div>
 
       <div className="lg:w-[20%] lg:mt-7 lg:pl-6">
