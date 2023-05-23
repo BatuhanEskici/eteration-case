@@ -16,7 +16,7 @@ export default function Navbar() {
             <input
               type="text"
               placeholder="Search"
-              className="p-1 w-100 lg:w-[50%]"
+              className="p-1 w-[100%] lg:w-[50%]"
               onInput={context.handleProductSearch}
             />
           </div>
