@@ -35,7 +35,7 @@ export default function ProductListingPage() {
   }, [pagedItems]);
 
   const getProductCardClass = (productIndex) => {
-    let className = '';
+    let className = 'cursor-pointer';
 
     if (productIndex + 1 > 4 || windowSize.current[0] < 1024) {
       className += 'mt-4';
