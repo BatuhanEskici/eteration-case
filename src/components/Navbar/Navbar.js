@@ -22,7 +22,7 @@ export default function Navbar() {
           </div>
         )}
 
-        <div className="lg:w-[20%] w-full text-center lg:text-start mt-2 lg:mt-0 text-white pl-6">
+        <div className="lg:w-[20%] w-full text-center lg:text-right mt-2 lg:mt-0 text-white pl-6">
           <span>
             {context.totalPrice
               ? `${context.totalPrice.toLocaleString()} TL`
