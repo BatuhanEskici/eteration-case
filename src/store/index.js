@@ -4,6 +4,7 @@ import sort from './sort';
 import brands from './brands';
 import models from './models';
 import box from './box';
+import appConfig from './appConfig';
 
 const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
     brands,
     models,
     box,
+    appConfig,
   },
 });
 

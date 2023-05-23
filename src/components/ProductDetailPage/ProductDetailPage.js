@@ -1,8 +1,9 @@
 import { useState, useEffect, useMemo, memo } from 'react';
-import { useSelector } from 'react-redux';
-import { useParams } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams, useLocation } from 'react-router';
 import { useContext } from 'react';
 import { AppContext } from '../../App';
+import { updateAppConfig } from '../../store/appConfig';
 import Box from '../Box/Box';
 import Checkout from '../Checkout/Checkout';
 
@@ -12,6 +13,12 @@ function ProductDetailPage() {
   const [currentProduct, setCurrentProduct] = useState({});
   const params = useParams();
   const currentProductId = useMemo(() => params.id, [params.id]);
+  const location = useLocation();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(updateAppConfig({ showSearchInput: false }));
+  }, [location, dispatch]);
 
   useEffect(() => {
     setCurrentProduct(

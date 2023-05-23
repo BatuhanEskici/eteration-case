@@ -1,6 +1,7 @@
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState, useRef } from 'react';
-import { useNavigate } from 'react-router';
+import { useNavigate, useLocation } from 'react-router';
+import { updateAppConfig } from '../../store/appConfig';
 import Sort from '../Filters/Sort/Sort';
 import Brands from '../Filters/Brands/Brands';
 import Models from '../Filters/Models/Models';
@@ -14,6 +15,12 @@ export default function ProductListingPage() {
   const pagedItems = useSelector((state) => state.products.pagedItems);
   const [hasProduct, setHasProduct] = useState(false);
   const windowSize = useRef([window.innerWidth, window.innerHeight]);
+  const location = useLocation();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(updateAppConfig({ showSearchInput: true }));
+  }, [location, dispatch]);
 
   const handleProductClick = (event, productId) => {
     const canNavigate = event.target.getAttribute('navigatedetail');
