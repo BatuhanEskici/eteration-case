@@ -9,8 +9,7 @@ function Pagination({ className }) {
   );
   const [pageButtons, setPageButtons] = useState([]);
   const showFirstPageButton = useMemo(
-    () =>
-      products.pageCount > 3 && products.pageCount - products.activePage < 2,
+    () => products.pageCount > 3 && products.activePage > 2,
     [products.pageCount, products.activePage]
   );
   const showLastPageButton = useMemo(
