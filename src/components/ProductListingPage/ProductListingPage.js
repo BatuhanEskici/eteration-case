@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useRef, memo, useMemo } from 'react';
 import { useNavigate, useLocation } from 'react-router';
 import { updateAppConfig } from '../../store/appConfig';
 import Sort from '../Filters/Sort/Sort';
@@ -10,10 +10,10 @@ import Box from '../Box/Box';
 import Checkout from '../Checkout/Checkout';
 import Pagination from '../Pagination/Pagination';
 
-export default function ProductListingPage() {
+function ProductListingPage() {
   const navigate = useNavigate();
   const pagedItems = useSelector((state) => state.products.pagedItems);
-  const [hasProduct, setHasProduct] = useState(false);
+  const hasProduct = useMemo(() => pagedItems.length, [pagedItems]);
   const windowSize = useRef([window.innerWidth, window.innerHeight]);
   const location = useLocation();
   const dispatch = useDispatch();
@@ -29,10 +29,6 @@ export default function ProductListingPage() {
       navigate(`/product/${productId}`, { replace: false });
     }
   };
-
-  useEffect(() => {
-    setHasProduct(pagedItems.length);
-  }, [pagedItems]);
 
   const getProductCardClass = (productIndex) => {
     let className = 'cursor-pointer';
@@ -83,3 +79,5 @@ export default function ProductListingPage() {
     </div>
   );
 }
+
+export default memo(ProductListingPage);
