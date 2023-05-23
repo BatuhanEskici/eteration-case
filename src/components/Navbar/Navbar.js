@@ -22,11 +22,7 @@ export default function Navbar() {
           </div>
         )}
 
-        <div
-          className={`${
-            appConfig.showSearchInput ? 'lg:w-[20%]' : 'lg:w-[100%]'
-          } w-full text-center lg:text-right mt-2 lg:mt-0 text-white pl-6`}
-        >
+        <div className="lg:w-[20%] w-full text-center lg:text-right mt-2 lg:mt-0 text-white pl-6">
           <span>
             {context.totalPrice
               ? `${context.totalPrice.toLocaleString()} TL`
